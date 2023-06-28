@@ -1,0 +1,33 @@
+version: '3'
+services:
+  db:
+    image: postgres:10.1
+    restart: always
+    environment:
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+    ports:
+      - 5432:5432
+    volumes:
+      - ./conf/postgres/:/docker-entrypoint-initdb.d/
+    networks:
+      - bezkoder
+
+  app:
+    build: BezKoder
+    restart: always
+    ports:
+      - 8080:8080
+    environment:
+      - DB_URL=jdbc:postgresql://db:5432/${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+    depends_on:
+      - db
+    networks:
+      - bezkoder
+
+networks:
+  bezkoder:
+    driver: bridge
