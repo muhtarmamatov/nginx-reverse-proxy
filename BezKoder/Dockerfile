@@ -13,7 +13,7 @@ RUN mvn help:evaluate -Dexpression=project.name -q -DforceStdout > /tmp/appname.
 # Second stage: Run stage
 FROM openjdk:8-jre-slim
 WORKDIR /app
-COPY --from=build /app/target/my-application.jar .
+COPY --from=build /app/target/BezKoder.jar .
 COPY --from=build /tmp/appname.txt .
 
 EXPOSE 8080
