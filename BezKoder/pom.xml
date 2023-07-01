@@ -11,7 +11,7 @@
 	</parent>
 	<groupId>com.bezkoder</groupId>
 	<artifactId>spring-boot-thymeleaf-example</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1</version>
 	<name>BezKoder</name>
 	<description>Spring Boot Thymeleaf example - CRUD with Bootstrap</description>
 	<properties>
@@ -82,12 +82,14 @@
 	</dependencies>
 
 	<build>
+		<finalName>${project.name}-${project.version}</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
+
 	</build>
 
 </project>

@@ -8,7 +8,8 @@ COPY src/ /app/src/
 RUN mvn package -DskipTests
 
 # Extract the application name from pom.xml
-RUN mvn help:evaluate -Dexpression=project.name -q -DforceStdout > /tmp/appname.txt || echo "bezkoder" > /tmp/appname.txt
+#RUN mvn help:evaluate -Dexpression=project.name -q -DforceStdout > /tmp/appname.txt || echo "BezKoder" > /tmp/appname.txt
+RUN echo $(mvn help:evaluate -Dexpression=project.name -q -DforceStdout)-$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout) > /tmp/appname.txt || echo "BezKoder-0.0.1" > /tmp/appname.txt
 
 
 # Second stage: Run stage
