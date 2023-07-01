@@ -8,14 +8,15 @@ COPY src/ /app/src/
 RUN mvn package -DskipTests
 
 # Extract the application name from pom.xml
-RUN mvn help:evaluate -Dexpression=project.name -q -DforceStdout > /tmp/appname.txt
+RUN mvn help:evaluate -Dexpression=project.name -q -DforceStdout > /tmp/appname.txt || echo "bezkoder" > /tmp/appname.txt
+
 
 # Second stage: Run stage
 FROM openjdk:8-jre-slim
 WORKDIR /app
 COPY --from=build /app/target/*.jar ./
-COPY --from=build /tmp/appname.txt .
+COPY --from=build /tmp/appname.txt ./appname.txt
 
 EXPOSE 8080
 
-CMD ["sh", "-c", "java -jar $(cat /tmp/appname.txt).jar"]
+CMD ["sh", "-c", "java -jar $(cat appname.txt).jar"]
