@@ -18,5 +18,4 @@ COPY --from=build /tmp/appname.txt .
 
 EXPOSE 8080
 
-# CMD ["sh", "-c", "java -jar $(cat /tmp/appname.txt).jar"]
-CMD ["sh", "-c", "java -jar $(cat /tmp/appname.txt).jar", "--spring.profiles.active=postgresql"]
+CMD ["sh", "-c", "java -jar $(cat /tmp/appname.txt).jar"]
