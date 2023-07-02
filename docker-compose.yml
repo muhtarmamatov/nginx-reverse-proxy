@@ -56,7 +56,7 @@ services:
       - 3000:3000
     volumes:
       - ./data/grafana:/var/lib/grafana
-      - ./conf/grafana/dashboards/prometheus_dashboard.json:/etc/grafana/provisioning/dashboards/prometheus_dashboard.yaml
+      - ./conf/grafana/dashboards/prometheus_dashboard.json:/etc/grafana/provisioning/dashboards/prometheus_dashboard.json
       - ./conf/grafana/datasources:/etc/grafana/provisioning/datasources
     environment:
       - GF_SECURITY_ADMIN_PASSWORD=admin
