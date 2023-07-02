@@ -16,6 +16,7 @@ services:
 
   app:
     build: BezKoder
+    image: bezkoder-app
     restart: always
     ports:
       - 8080:8080
