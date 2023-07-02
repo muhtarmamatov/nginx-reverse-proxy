@@ -33,6 +33,21 @@ services:
     networks:
       - bezkoder
 
+  prometheus:
+      image: prom/prometheus:v2.35.0
+      container_name: prometheus
+      restart: unless-stopped
+      volumes:
+        - ./conf/prometheus:/etc/prometheus/
+      command:
+        - "--config.file=/etc/prometheus/prometheus.yaml"
+      ports:
+        - 9090:9090
+      links:
+        - app
+      networks:
+        - bezkoder
+
 networks:
   bezkoder:
     driver: bridge
