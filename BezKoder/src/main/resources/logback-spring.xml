@@ -1,4 +1,23 @@
 <configuration>
+    <springProfile name="dev">
+        <property name="LOGS_DIRECTORY" value="/A:/Projects/nginx-reverse-proxy/logs/bezkoder" />
+        <property name="LOG_FILE" value="${LOGS_DIRECTORY}/bezkoder-%d{yyyy-MM-dd}.log" />
+
+        <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <file>${LOG_FILE}</file>
+            <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                <fileNamePattern>${LOGS_DIRECTORY}/bezkoder-%d{yyyy-MM-dd}.log</fileNamePattern>
+                <maxHistory>30</maxHistory>
+            </rollingPolicy>
+            <encoder>
+                <pattern>[%d] [%-5level] [%logger{1}]: %msg%n</pattern>
+            </encoder>
+        </appender>
+
+        <root level="INFO,DEBUG">
+            <appender-ref ref="FILE" />
+        </root>
+    </springProfile>
     <springProfile name="default">
         <property name="LOGS_DIRECTORY" value="/var/log/bezkoder" />
         <property name="LOG_FILE" value="${LOGS_DIRECTORY}/bezkoder-%d{yyyy-MM-dd}.log" />
