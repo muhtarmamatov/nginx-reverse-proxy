@@ -3,6 +3,7 @@ package com.bezkoder.spring.thymeleaf.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
@@ -16,6 +17,7 @@ import com.bezkoder.spring.thymeleaf.entity.Tutorial;
 import com.bezkoder.spring.thymeleaf.repository.TutorialRepository;
 
 @Controller
+@Slf4j
 public class TutorialController {
 
   @Autowired
@@ -45,7 +47,6 @@ public class TutorialController {
   public String addTutorial(Model model) {
     Tutorial tutorial = new Tutorial();
     tutorial.setPublished(true);
-
     model.addAttribute("tutorial", tutorial);
     model.addAttribute("pageTitle", "Create new Tutorial");
 
@@ -54,6 +55,8 @@ public class TutorialController {
 
   @PostMapping("/tutorials/save")
   public String saveTutorial(Tutorial tutorial, RedirectAttributes redirectAttributes) {
+
+    log.info("Received data from controller /tutorials/save is {}", tutorial);
     try {
       tutorialRepository.save(tutorial);
 
@@ -67,6 +70,8 @@ public class TutorialController {
 
   @GetMapping("/tutorials/{id}")
   public String editTutorial(@PathVariable("id") Integer id, Model model, RedirectAttributes redirectAttributes) {
+
+    log.info("Accessed object with id {} for updating",id);
     try {
       Tutorial tutorial = tutorialRepository.findById(id).get();
 
@@ -83,6 +88,8 @@ public class TutorialController {
 
   @GetMapping("/tutorials/delete/{id}")
   public String deleteTutorial(@PathVariable("id") Integer id, Model model, RedirectAttributes redirectAttributes) {
+
+    log.info("Deleting object with ID {}", id);
     try {
       tutorialRepository.deleteById(id);
 
@@ -97,6 +104,8 @@ public class TutorialController {
   @GetMapping("/tutorials/{id}/published/{status}")
   public String updateTutorialPublishedStatus(@PathVariable("id") Integer id, @PathVariable("status") boolean published,
       Model model, RedirectAttributes redirectAttributes) {
+
+
     try {
       tutorialRepository.updatePublishedStatus(id, published);
 
