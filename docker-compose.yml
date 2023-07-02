@@ -19,6 +19,8 @@ services:
     restart: always
     ports:
       - 8080:8080
+    volumes:
+      - ./logs/bezkoder:/var/log/bezkoder
     env_file:
       - .env
     environment:
