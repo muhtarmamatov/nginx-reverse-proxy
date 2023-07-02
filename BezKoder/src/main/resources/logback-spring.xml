@@ -1,12 +1,12 @@
 <configuration>
     <springProfile name="default">
         <property name="LOGS_DIRECTORY" value="/var/log/bezkoder" />
-        <property name="LOG_FILE" value="${LOGS_DIRECTORY}/bezkoder-${date{yyyy-MM-dd}}.log" />
+        <property name="LOG_FILE" value="${LOGS_DIRECTORY}/bezkoder-%d{yyyy-MM-dd}.log" />
 
         <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
             <file>${LOG_FILE}</file>
             <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-                <fileNamePattern>${LOGS_DIRECTORY}/bezkoder-%d{yyyy-MM-dd}.log</fileNamePattern>
+                <fileNamePattern>${LOGS_DIRECTORY}/bezkoder-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
                 <maxHistory>30</maxHistory>
             </rollingPolicy>
             <encoder>
@@ -16,5 +16,6 @@
 
         <root level="INFO">
             <appender-ref ref="FILE" />
-        </root>    </springProfile>
+        </root>
+    </springProfile>
 </configuration>
