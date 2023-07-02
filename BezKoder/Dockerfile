@@ -18,6 +18,9 @@ WORKDIR /app
 COPY --from=build /app/target/*.jar ./
 COPY --from=build /tmp/appname.txt ./appname.txt
 
+# Create /var/log/bezkoder directory with full permissions
+RUN mkdir -p /var/log/bezkoder && chmod 777 /var/log/bezkoder
+
 EXPOSE 8080
 
 CMD ["sh", "-c", "java -jar $(cat appname.txt).jar"]
