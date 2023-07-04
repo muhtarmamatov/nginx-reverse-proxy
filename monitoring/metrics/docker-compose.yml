@@ -1,38 +1,5 @@
 version: '3'
 services:
-  db:
-    image: postgres:10.1
-    restart: always
-    environment:
-      - POSTGRES_DB=${DB_NAME}
-      - POSTGRES_USER=${DB_USER}
-      - POSTGRES_PASSWORD=${DB_PASSWORD}
-    ports:
-      - 5432:5432
-    volumes:
-      - ./conf/postgres/:/docker-entrypoint-initdb.d/
-    networks:
-      - bezkoder
-
-  app:
-    build: BezKoder
-    image: bezkoder-app
-    restart: always
-    ports:
-      - 8080:8080
-    volumes:
-      - ./logs/bezkoder:/var/log/bezkoder
-    env_file:
-      - .env
-    environment:
-      - POSTGRES_DB_URL=jdbc:postgresql://db:5432/${DB_NAME}
-      - POSTGRES_DB_USER=${DB_USER}
-      - POSTGRES_DB_PASSWORD=${DB_PASSWORD}
-    depends_on:
-      - db
-    networks:
-      - bezkoder
-
   prometheus:
       image: prom/prometheus:v2.35.0
       container_name: prometheus
@@ -46,7 +13,8 @@ services:
       links:
         - app
       networks:
-        - bezkoder
+        - monitoring
+
   grafana:
     image: grafana/grafana-oss:8.5.2
     container_name: grafana
@@ -66,8 +34,4 @@ services:
       - GF_LOG_MODE=console file
       - GF_LOG_FILTERS=alerting.notifier.slack:debug alertmanager:debug ngalert:debug
     networks:
-      - bezkoder
-
-networks:
-  bezkoder:
-    driver: bridge
+      - monitoring
