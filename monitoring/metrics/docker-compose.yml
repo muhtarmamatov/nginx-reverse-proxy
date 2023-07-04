@@ -13,6 +13,7 @@ services:
       links:
         - app
       networks:
+        - backend
         - monitoring
 
   grafana:
