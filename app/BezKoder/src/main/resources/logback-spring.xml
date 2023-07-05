@@ -1,18 +1,19 @@
 <configuration>
-    <springProfile name = "dev">
+    <springProfile name="dev">
         <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
             <encoder>
-                <pattern>[%d] [%-5level] [%logger{1}]: %msg%n</pattern>
+                <pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS}] [%-5level] [%-5thread] [%X{pid}] [%logger{1}]: %msg%n</pattern>
             </encoder>
         </appender>
 
         <root level="INFO">
-            <appender-ref ref="CONSOLE" />
+            <appender-ref ref="CONSOLE"/>
         </root>
     </springProfile>
+
     <springProfile name="default">
-        <property name="LOGS_DIRECTORY" value="/var/log/bezkoder" />
-        <property name="LOG_FILE" value="${LOGS_DIRECTORY}/bezkoder-%d{yyyy-MM-dd}.log" />
+        <property name="LOGS_DIRECTORY" value="/var/log/bezkoder"/>
+        <property name="LOG_FILE" value="${LOGS_DIRECTORY}/bezkoder-%d{yyyy-MM-dd}.log"/>
 
         <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
             <file>${LOG_FILE}</file>
@@ -21,12 +22,12 @@
                 <maxHistory>30</maxHistory>
             </rollingPolicy>
             <encoder>
-                <pattern>[%d] [%-5level] [%logger{1}]: %msg%n</pattern>
+                <pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS}] [%-5level] [%-5thread] [%-5pid] [%logger{1}]: %msg%n</pattern>
             </encoder>
         </appender>
 
         <root level="INFO">
-            <appender-ref ref="FILE" />
+            <appender-ref ref="FILE"/>
         </root>
     </springProfile>
 </configuration>
