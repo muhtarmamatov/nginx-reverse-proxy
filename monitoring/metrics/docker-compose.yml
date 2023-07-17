@@ -31,7 +31,7 @@ services:
     volumes:
       - ./data/grafana:/var/lib/grafana
       - ./conf/grafana/dashboards/prometheus_dashboard.json:/etc/grafana/provisioning/dashboards/prometheus_dashboard.json
-      - ./conf/grafana/datasources:/etc/grafana/provisioning/datasources
+      - ./conf/grafana/datasources/:/etc/grafana/provisioning/datasources
     environment:
       - GF_SECURITY_ADMIN_PASSWORD=admin
       - GF_USERS_ALLOW_SIGN_UP=false
