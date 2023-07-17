@@ -19,4 +19,11 @@ scrape_configs:
       - targets: ['app:8080']
         labels:
           application: "BezKoder Application Prometheus"
+  
+  - job_name: 'nginx'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['nginx:80']
+        labels:
+          application: "Nginx Loadf Balancer"
 
