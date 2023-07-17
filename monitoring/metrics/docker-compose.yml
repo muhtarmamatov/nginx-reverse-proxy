@@ -1,4 +1,10 @@
 version: '3'
+networks:
+  backend:
+    external: true
+  monitoring:
+    external: true
+
 services:
   prometheus:
       image: prom/prometheus:v2.35.0
