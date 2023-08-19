@@ -22,7 +22,7 @@
                 <maxHistory>30</maxHistory>
             </rollingPolicy>
             <encoder>
-                <pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS}] [%-5level] [%-5thread] [%-5pid] [%logger{1}]: %msg%n</pattern>
+                <pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS}] [%-5level] [%-5thread] [%logger{1}]: %msg%n</pattern>
             </encoder>
         </appender>
 
