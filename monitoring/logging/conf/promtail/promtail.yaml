@@ -32,21 +32,22 @@ scrape_configs:
             - timestamp:
                 format: '2023-01-02 15:04:05.000'
                 source: timestamp
-
-
-
-
-
-
-
-
-                  
-
-
-
-
-
-
-
-
-                  
+  - job_name: nginx_access_log
+    static_configs:
+      - targets:
+          - localhost
+        labels:
+          job: nginx_access_log
+          __path__: /var/log/nginx/access.log
+    pipeline_stages:
+      - regex:
+          expression: '^(?P<remote_addr>[^ ]+) - (?P<remote_user>[^ ]+) \[(?P<timestamp>[^\]]+)\] "(?P<request>[^"]+)" (?P<status>\d+) (?P<body_bytes_sent>\d+) "(?P<http_referer>[^"]+)" "(?P<http_user_agent>[^"]+)"'
+      - labels:
+          remote_addr:
+          remote_user:
+          timestamp:
+          request:
+          status:
+          body_bytes_sent:
+          http_referer:
+          http_user_agent:

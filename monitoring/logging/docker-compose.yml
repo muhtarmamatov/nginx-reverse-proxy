@@ -26,6 +26,7 @@ services:
     user: root
     volumes:
       - /home/muhtar/nginx-reverse-proxy/logs/bezkoder:/var/log/test
+      - /home/muhtar/nginx-reverse-proxy/logs/nginx:/var/log/nginx
       - /var/log/system.log:/var/log/root/system.log
       - ./conf/promtail/promtail.yaml:/etc/config/promtail-local-config.yaml
     entrypoint:

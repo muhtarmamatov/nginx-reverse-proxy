@@ -1,20 +1,25 @@
 version: '3'
+
+networks:
+  backend:
+    external: true
+  monitoring:
+    external: true
+
 services:
   prometheus:
-      image: prom/prometheus:v2.35.0
-      container_name: prometheus
-      restart: unless-stopped
-      volumes:
-        - ./conf/prometheus:/etc/prometheus/
-      command:
-        - "--config.file=/etc/prometheus/prometheus.yaml"
-      ports:
-        - 9090:9090
-      links:
-        - app
-      networks:
-        - backend
-        - monitoring
+    image: prom/prometheus:v2.35.0
+    container_name: prometheus
+    restart: unless-stopped
+    volumes:
+      - ./conf/prometheus/:/etc/prometheus/
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yaml"
+    ports:
+      - 9090:9090
+    networks:
+      - backend
+      - monitoring
 
   grafana:
     image: grafana/grafana-oss:8.5.2
@@ -25,8 +30,8 @@ services:
       - 3000:3000
     volumes:
       - ./data/grafana:/var/lib/grafana
-      - ./conf/grafana/dashboards/prometheus_dashboard.json:/etc/grafana/provisioning/dashboards/prometheus_dashboard.json
-      - ./conf/grafana/datasources:/etc/grafana/provisioning/datasources
+      - ./conf/grafana/dashboards/:/etc/grafana/provisioning/dashboards/
+      - ./conf/grafana/datasources/:/etc/grafana/provisioning/datasources/
     environment:
       - GF_SECURITY_ADMIN_PASSWORD=admin
       - GF_USERS_ALLOW_SIGN_UP=false
