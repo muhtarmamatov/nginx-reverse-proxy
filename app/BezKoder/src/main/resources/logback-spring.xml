@@ -13,19 +13,21 @@
 
     <springProfile name="default">
         <property name="LOGS_DIRECTORY" value="/var/log/bezkoder"/>
-        <property name="LOG_FILE_PATTERN" value="${LOGS_DIRECTORY}/bezkoder-%d{yyyy-MM-dd}.log"/>
+        <property name="LOG_FILE_PATTERN" value="${LOGS_DIRECTORY}/bezkoder.log"/>
 
         <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
             <file>${LOG_FILE_PATTERN}</file>
-        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-            <fileNamePattern>bezkoder-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
-            <maxFileSize>1MB</maxFileSize>
-            <maxHistory>30</maxHistory>
-            <totalSizeCap>10MB</totalSizeCap>
-            <cleanHistoryOnStart>true</cleanHistoryOnStart>
-        </rollingPolicy>
-            <encoder>
-                <pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS}] [%-5level] [%-5thread] [%logger{1}]: %msg%n</pattern>
+            <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                <fileNamePattern>
+                    ${LOG_FILE_PATTERN}/bezkoder_log_%d{dd-MM-yyyy}.log
+                </fileNamePattern>
+                <maxHistory>10</maxHistory>
+                <totalSizeCap>100MB</totalSizeCap>
+            </rollingPolicy>
+            <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+                <Pattern>
+                %d{dd-MM-yyyy HH:mm:ss.SSS} [%thread] %-5level %logger{36}.%M - %msg%n
+                </Pattern>
             </encoder>
         </appender>
 
